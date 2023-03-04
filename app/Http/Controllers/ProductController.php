@@ -11,6 +11,20 @@ class ProductController extends Controller
 {
     public function index(){
         $user = User::where('name', 'Rufi')->first();
+        
+        return view('welcome', ["products"=>$user->products]);
+    }
+
+    public function default(){
+        $user = User::where('name', 'Rufi')->first();
+        // $product = new Product;
+        // $product->name="Gta 6";
+        // $product->price=3000;
+        // $product->type="size";
+        // $product->value="14000";
+        // $product->productable_type="App\Models\User";
+        // $product->productable_id=$user->id;
+        // $product->save();
         return view('welcome', ["products"=>$user->products]);
     }
 
@@ -18,7 +32,7 @@ class ProductController extends Controller
         return view('create');
     }
 
-    public function store(){
+    public function store(Request $request){
         $user = User::where('name', 'Rufi')->first();
         $product = new Product();
         $product->name = request("name");
@@ -27,6 +41,7 @@ class ProductController extends Controller
         $product->value = request("typevalue");
         $product->productable_type = "App\Models\User";
         $product->productable_id = $user->id;
+
 
         $product->save();
         return redirect("/");
